@@ -1,0 +1,67 @@
+{% extends "core/base.html" %}
+{% load static %}
+  {% block title %} {{page.title}} {% endblock title %}
+  {% block custom_style %}  
+  
+  {% endblock custom_style %}
+
+  {% block content %}     
+
+  <!--Main layout-->
+  <main>
+    <div class="container">
+      <hr class="my-5">
+       <!--Contact-->
+      <section>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+          <!--Grid column-->
+          <div class="col-md-12 col-xl-12 mb-10">
+              <!--Card-->
+              <div class="card">
+                <div class="card-header text-center">
+                  <!-- Main heading -->
+                  <h3 class="h3 mb-3">{{page.title}}</h3>
+                  <p class="card-subtitle">{{page.sub_title}}</p>
+                </div>
+                <!--Card content-->
+                <div class="card-body">
+                  <div class="card-text text-justify">
+                    <p>
+                      {{ page.body }}
+                    </p>
+                  </div>
+                  
+                  <hr>
+                  <div class="card-img">
+                    {% if page.img %}
+                    <img src="{{ page.img.url }}" class="img-fluid" alt="{{ page.title }} Cover">
+                    {% else %}
+                    <img src="{% static 'core/img/reading.jpg' %}" class="img-fluid" alt="Book Cover">
+                    {% endif %}
+                  </div>
+                  <hr>
+                  {% if page.extra_info %}
+                  <div class="card">
+                    <div class="card-header">
+                      {{ page.extra_info }}
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+  
+            </div>
+            <!--/.Card-->
+
+          </div>
+          <!--./Grid column-->
+        </div>
+        <!--/Grid row-->
+
+      </section>
+    <hr class="mb-5"> 
+    </div>
+  </main>
+  <!--Main layout-->
+  {% endblock content %}

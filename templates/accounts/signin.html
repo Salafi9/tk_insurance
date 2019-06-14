@@ -1,0 +1,79 @@
+{% extends "core/base.html" %}
+{% load static %}
+  {% block title %} Login {% endblock title %}
+  {% block custom_style %}  
+  
+  {% endblock custom_style %}
+
+  {% block content %}     
+
+  <!--Main layout-->
+  <main>
+    <div class="container-fluid">
+      <hr class="my-5">
+       <!--Contact-->
+      <section>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+          <!--Grid column-->
+          <div class="col-md-10 col-xl-12 mb-10">
+            <!--Card-->
+            <div class="card">
+              <!--Card content-->
+              <div class="card-body">
+                <!-- Form -->
+                <form action="{% url 'accounts:login' %}" method="POST">
+                  {% csrf_token %}
+                  <!-- Heading -->
+                  <h3 class="dark-grey-text text-center">
+                    <strong>Login</strong>
+                  </h3>
+                  <hr>
+                  {% if error %}
+                    <div class="badge badge-danger text-center col-md-12">
+                        <strong>   {{ msg }} </strong>
+                    </div>
+                  {% endif %}
+                  <div class="md-form">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <input name="username"  type="text" class="form-control" required="">
+                    <label>Username</label>
+                  </div>
+                  <div class="md-form">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <input name="password" type="password" class="form-control" required="">
+                    <label>Your Password</label>
+                  </div>
+
+                  <div class="text-center">
+                    <button class="btn btn-indigo">Login</button>
+                    <br />
+                    <span>
+                       Forgot Password? <a href="{% url 'forgot_password' %}">Reset</a>
+                    </span> 
+                    <hr class="my-1">
+                    <span>
+                      Don't Have an account? <a href="{% url 'accounts:signup' %}">Register</a>
+                    </span>
+                   
+                  </div>
+                
+                </form>
+                <!-- Form -->
+
+              </div>
+
+            </div>
+            <!--/.Card-->
+
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--/Grid row-->
+
+      </section>
+    <hr class="mb-5"> 
+    </div>
+  </main>
+  <!--Main layout-->
+  {% endblock content %}

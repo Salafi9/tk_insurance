@@ -1,0 +1,197 @@
+{% extends "v1/accounts/account_base.html" %}
+{% load static %}
+{% block title %}  {{ profile }} {% endblock title %}
+{% block content %}
+  <!--Main layout-->
+  <main class="pt-5 mx-lg-5">
+    <div class="container-fluid mt-5">
+      <!-- Heading -->
+      <div class="card mb-4 wow fadeIn">
+        <!--Card content-->
+        <div class="card-body d-sm-flex justify-content-between">
+          <h4 class="mb-2 mb-sm-0 pt-1">
+            <a href="">Home Page</a>
+            <span>/</span>
+            <span>Dashboard</span>
+          </h4>
+          <form class="d-flex justify-content-center">
+            <!-- Default input -->
+            <input type="search" placeholder="Type your query" aria-label="Search" class="form-control">
+            <button class="btn btn-primary btn-sm my-0 p" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+     
+      <!-- Heading -->
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+        <!--Grid column transactions-->
+        <div class="col-md-12 mb-4">
+          <!--Card-->
+             <!--Card-->
+          <div class="card" id="transactions">
+            <!--Card content-->
+            <div class="card-body">
+              <div class="card-header text-uppercase text-center">
+                Transactions
+              </div>
+              <!-- Table  -->
+              <table class="table table-hover">
+                <!-- Table head -->
+                <thead class="blue lighten-4">
+                  <tr>
+                    <th>#</th>
+                    <th>Book</th>
+                    <th>Ref No.</th>
+                    <th>Success</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <!-- Table head -->
+
+                <!-- Table body -->
+                <tbody>
+                  {% for transaction in transactions %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td> {% if transaction.success %}  <a href="{{ transaction.book.file.url }}" target="_blank" ><i class="fas fa-arrow-alt-circle-down">{{ transaction.book }}</i></a> {% else %} {{ transaction.book }} {% endif %}</td>
+                    <td> <button onclick="refNoCopy('{{ transaction.reference}}')">{{ transaction.reference |truncatechars:9}}</button> </td>
+                    <td>{% if transaction.success %} <span class="badge badge-success far fa-check-circle"> Done</span> {% else %}  <span class="badge badge-warning fas fa-exclamation"> Pending</span> {% endif %}</td> 
+                    <td>{{ transaction.time_stamp|date:"D d M Y"}}</td>
+
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <!-- Table body -->
+              </table>
+              <!-- Table  -->
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column transactions-->
+
+        
+        <!-- Grid books-->
+        <div class="col-md-12 mb-4">
+          <!--Card-->
+              <!--Card-->
+          <div class="card" id="books">
+            <!--Card content-->
+            <div class="card-body">
+              <div class="card-header text-uppercase text-center">
+                Books
+              </div>
+              <!-- Table  -->
+              <table class="table table-hover">
+                <!-- Table head -->
+                <thead class="blue lighten-4">
+                  <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>File</th>
+                    <th>Genre(s)</th>
+                    <th>Author(s)</th>
+                  </tr>
+                </thead>
+                <!-- Table head -->
+
+                <!-- Table body -->
+                <tbody>
+                  {% for book in books %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td> {{ book.book }}</td>
+                    <td>  <a href="{{ book.book.file.url }}" target="_blank" ><i class="fas fa-arrow-alt-circle-down">Download</i></a> </td>
+                    <td> {{ book.book.display_genre }}</td>
+                    <td> {{ book.book.display_authors }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <!-- Table body -->
+              </table>
+              <!-- Table  -->
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!-- ./Grid books-->
+
+        <!-- Grid Profile Settings-->
+         <div class="col-md-12 col-xl-10 mb-4">
+          <!--Card-->
+          <div class="card" id="profile">
+            <!--Card content-->
+            <div class="card-body">
+              <!-- Form -->
+              <form action="#" method="POST">
+                {% csrf_token %}
+                <input name='next_url' type="hidden" value= "{{ request.get_full_path }}" >
+                <input name='subject' type="hidden" value= "From Web Form" >
+                <div class="md-form">
+                  <i class="fas fa-user-check prefix grey-text"></i>
+                  <input name="username" type="text" id="form2" class="form-control" value="{{user.username}}" readonly="">
+                  <label for="form2"Username</label>
+                </div>
+                <div class="md-form">
+                  <i class="fas fa-user prefix grey-text"></i>
+                  <input name="name"  type="text" id="form3" class="form-control" value="{{profile.full_name}}" required="">
+                  <label for="form3">Your name</label>
+                </div>
+                <div class="md-form">
+                  <i class="fas fa-envelope prefix grey-text"></i>
+                  <input name="email" type="text" id="form2" class="form-control" value="{{user.email}}" required="">
+                  <label for="form2">Your email</label>
+                </div>
+
+                <div class="md-form">
+                  <i class="fas fa-phone prefix grey-text"></i>
+                  <input name="phone" type="text" id="form2" class="form-control" value="{{profile.phone_number}}" required="">
+                  <label for="form2">Phone</label>
+
+                <div class="text-center">
+                  <button class="btn btn-indigo">Save</button>
+                </div>
+
+              </form>
+              <!-- Form -->
+
+            </div>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+        <!-- ./Grid Profile Settings-->
+
+      </div>
+      <!--Grid row-->
+     
+    </div>
+  </main>
+  <!--Main layout-->
+  {% endblock content %}
+  {% block custom_script %}  
+  <script src="{% static 'core/vendors/sweetalert/sweetalert.min.js' %}"></script>
+  <script>
+    function refNoCopy(copyText){   
+      var dummyContent = copyText;
+      var dummy = $('<input>').val(dummyContent).appendTo('body').select()
+      document.execCommand("copy"); 
+      swal('Copied', 'Copied Reference No. to clipboard:\n '+copyText, 'success');
+    }
+  </script>
+  {% endblock custom_script %}
+  
+
+  

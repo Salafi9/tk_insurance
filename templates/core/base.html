@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title> {% block title %}   {% endblock title %}  | TK Insurance</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static  'core/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="{% static  'core/css/mdb.min.css' %}" rel="stylesheet">
+  <!-- Your custom styles (optional) -->'
+  <link href="{% static  'core/css/style.min.css' %}" rel="stylesheet">
+  {% block custom_style %}  
+  
+  {% endblock custom_style %}
+</head>
+        
+<body>
+    {% include 'core/menu.html' %}
+    {% block content %}
+
+    {% endblock content %}
+
+    <!--Footer-->
+  <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        
+    <hr class="my-4">
+    <div class="pb-4">
+      <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+        <i class="fab fa-facebook-f mr-3"></i>
+      </a>
+
+      <a href="https://twitter.com/MDBootstrap" target="_blank">
+        <i class="fab fa-twitter mr-3"></i>
+      </a>
+      
+    </div>
+ 
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+      © 2019 Copyright:
+      <a href="{% url 'core:about' %}" target="_blank">  TK Insurance </a> Made with <i class="fas fa-heart  mr-3"> by <a href="https://ahmadabdulnasir.com.ng/me/" target="_blank">DaboLinux Technologies</a>  </i>
+    </div>
+    <!--/.Copyright-->
+
+  </footer>
+  <!--/.Footer-->
+
+  <!-- SCRIPTS -->
+  {% block custom_scripts %}  
+  
+  {% endblock custom_scripts %}
+  <!-- JQuery -->
+  <script type="text/javascript" src="{% static 'core/js/jquery-3.3.1.min.js' %}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static 'core/js/popper.min.js' %}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static 'core/js/bootstrap.min.js' %}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'core/js/mdb.min.js' %}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+  </script>
+</body>
+
+</html>
