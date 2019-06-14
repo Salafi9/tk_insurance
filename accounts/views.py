@@ -112,7 +112,8 @@ def dashboardView(request):
     if user.profile.user_status() == 'Admin':
         return HttpResponseRedirect('/admin/')
     elif user.profile.user_status() == 'Employee':
-        return HttpResponseRedirect(reverse('accounts:employee-dashboard') )
+        # return HttpResponseRedirect(reverse('accounts:employee-dashboard') )
+        return HttpResponseRedirect('/admin/')
     elif user.profile.user_status() == 'Client':
         return HttpResponseRedirect(reverse('accounts:client-dashboard'))
     else:

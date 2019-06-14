@@ -20,8 +20,8 @@ class UserProfile(models.Model):
     uid = models.UUIDField(default=uuid4, editable=False)
     image = models.ImageField(blank=True, null=True, upload_to='profile_pics')
     address = models.TextField(blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
     state = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
     phone_number = models.CharField(blank=True, null=True, max_length=15)
     gender = models.CharField(default="Others", blank=True, null=True, max_length=6, help_text="Gender", choices=GENDER)
     dob = models.DateField(blank=True, null=True,help_text='Date of Birth')
@@ -61,11 +61,6 @@ class EmployeeProfile(models.Model):
     profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE,  related_name='employee_profile')
     uid = models.UUIDField(default=uuid4, editable=True)
     about = models.TextField(blank=True, null=True)
-    fb_link = models.URLField(blank=True, null=True)
-    tw_link = models.URLField(blank=True, null=True)
-    github_link = models.URLField(blank=True, null=True)
-    instagram_link = models.URLField(blank=True, null=True)
-    linkedin_link = models.URLField(blank=True, null=True)
     reg_date = models.DateTimeField(auto_now_add=True, auto_now= False)
     updated = models.DateTimeField(auto_now_add=False, auto_now= True)
     active = models.BooleanField(default=False)
@@ -82,20 +77,16 @@ class EmployeeProfile(models.Model):
 class ClientProfile(models.Model):
     profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE,  related_name='client_profile')
     uid = models.UUIDField(default=uuid4, editable=True)
-    about = models.TextField(blank=True, null=True)
-    fb_link = models.URLField(blank=True, null=True)
-    tw_link = models.URLField(blank=True, null=True)
-    github_link = models.URLField(blank=True, null=True)
-    instagram_link = models.URLField(blank=True, null=True)
-    linkedin_link = models.URLField(blank=True, null=True)
     reg_date = models.DateTimeField(auto_now_add=True, auto_now= False)
     updated = models.DateTimeField(auto_now_add=False, auto_now= True)
     active = models.BooleanField(default=True)
-  
-    def __str__(self):
-    	return str(self.profile)
-
+    
     class Meta: 
         verbose_name = 'Client Profile'
         verbose_name_plural = 'Clients Profiles'
         ordering = ["-reg_date", 'profile']
+
+    def __str__(self):
+    	return str(self.profile)
+
+    

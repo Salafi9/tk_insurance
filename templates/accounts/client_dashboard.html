@@ -1,4 +1,4 @@
-{% extends "v1/accounts/account_base.html" %}
+{% extends "accounts/account_base.html" %}
 {% load static %}
 {% block title %}  {{ profile }} {% endblock title %}
 {% block content %}
@@ -6,11 +6,11 @@
   <main class="pt-5 mx-lg-5">
     <div class="container-fluid mt-5">
       <!-- Heading -->
-      <div class="card mb-4 wow fadeIn">
+      <div class="card mb-4">
         <!--Card content-->
         <div class="card-body d-sm-flex justify-content-between">
           <h4 class="mb-2 mb-sm-0 pt-1">
-            <a href="">Home Page</a>
+            <a href="">Client</a>
             <span>/</span>
             <span>Dashboard</span>
           </h4>
@@ -27,7 +27,7 @@
       <!-- Heading -->
 
       <!--Grid row-->
-      <div class="row wow fadeIn">
+      <div class="row">
         <!--Grid column transactions-->
         <div class="col-md-12 mb-4">
           <!--Card-->
@@ -36,7 +36,7 @@
             <!--Card content-->
             <div class="card-body">
               <div class="card-header text-uppercase text-center">
-                Transactions
+                Policy
               </div>
               <!-- Table  -->
               <table class="table table-hover">
@@ -44,10 +44,12 @@
                 <thead class="blue lighten-4">
                   <tr>
                     <th>#</th>
-                    <th>Book</th>
-                    <th>Ref No.</th>
-                    <th>Success</th>
-                    <th>Time</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Count</th>
+                    <th>Remaining</th>
+                    <th>Last Payment</th>
                   </tr>
                 </thead>
                 <!-- Table head -->
@@ -77,86 +79,74 @@
         </div>
         <!--Grid column transactions-->
 
-        
-        <!-- Grid books-->
-        <div class="col-md-12 mb-4">
-          <!--Card-->
-              <!--Card-->
-          <div class="card" id="books">
-            <!--Card content-->
-            <div class="card-body">
-              <div class="card-header text-uppercase text-center">
-                Books
-              </div>
-              <!-- Table  -->
-              <table class="table table-hover">
-                <!-- Table head -->
-                <thead class="blue lighten-4">
-                  <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>File</th>
-                    <th>Genre(s)</th>
-                    <th>Author(s)</th>
-                  </tr>
-                </thead>
-                <!-- Table head -->
-
-                <!-- Table body -->
-                <tbody>
-                  {% for book in books %}
-                  <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td> {{ book.book }}</td>
-                    <td>  <a href="{{ book.book.file.url }}" target="_blank" ><i class="fas fa-arrow-alt-circle-down">Download</i></a> </td>
-                    <td> {{ book.book.display_genre }}</td>
-                    <td> {{ book.book.display_authors }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-                <!-- Table body -->
-              </table>
-              <!-- Table  -->
-
-            </div>
-
-          </div>
-          <!--/.Card-->
-
-        </div>
-        <!-- ./Grid books-->
-
         <!-- Grid Profile Settings-->
-         <div class="col-md-12 col-xl-10 mb-4">
+         <div class="col-md-12 col-xl-12 mb-12">
           <!--Card-->
           <div class="card" id="profile">
+            <div class="card-header text-center">
+              <h4>Profile</h4>
+            </div>
             <!--Card content-->
             <div class="card-body">
               <!-- Form -->
               <form action="#" method="POST">
                 {% csrf_token %}
                 <input name='next_url' type="hidden" value= "{{ request.get_full_path }}" >
-                <input name='subject' type="hidden" value= "From Web Form" >
-                <div class="md-form">
-                  <i class="fas fa-user-check prefix grey-text"></i>
-                  <input name="username" type="text" id="form2" class="form-control" value="{{user.username}}" readonly="">
-                  <label for="form2"Username</label>
-                </div>
+                
                 <div class="md-form">
                   <i class="fas fa-user prefix grey-text"></i>
-                  <input name="name"  type="text" id="form3" class="form-control" value="{{profile.full_name}}" required="">
-                  <label for="form3">Your name</label>
+                  <input name="name"  type="text" id="form3" class="form-control" value="{{profile.get_name}}" readonly="">
+                  <label for="form3">Name</label>
                 </div>
+
+                <div class="md-form">
+                    <i class="far fa-id-badge prefix grey-text"></i>
+                    <input name="uid"  type="text" id="form3" class="form-control" value="{{profile.uid}}" readonly="">
+                    <label for="form3">Client ID</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <input name="gender"  type="text" id="form3" class="form-control" value="{{profile.gender}}" readonly="">
+                    <label for="form3">Gender</label>
+                </div>
+                
+                <div class="md-form">
+                    <i class="far fa-calendar-alt prefix green-text"></i>
+                    <input name="dob" type="text" id="form2" class="form-control" value="{{profile.dob}}" readonly="">
+                    <label for="form2">DOB</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-globe prefix grey-text"></i>
+                    <input name="state" type="text" id="form2" class="form-control" value="{{profile.state}}" required="">
+                    <label for="form2">State</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-globe prefix grey-text"></i>
+                    <input name="country" type="text" id="form2" class="form-control" value="{{profile.country}}" required="">
+                    <label for="form2">Country</label>
+                </div>
+
                 <div class="md-form">
                   <i class="fas fa-envelope prefix grey-text"></i>
                   <input name="email" type="text" id="form2" class="form-control" value="{{user.email}}" required="">
-                  <label for="form2">Your email</label>
+                  <label for="form2">Email</label>
                 </div>
 
                 <div class="md-form">
                   <i class="fas fa-phone prefix grey-text"></i>
                   <input name="phone" type="text" id="form2" class="form-control" value="{{profile.phone_number}}" required="">
                   <label for="form2">Phone</label>
+                </div>
+
+                <div class="md-form">
+                  <i class="fas fa-pencil-alt prefix grey-text"></i>
+                  <textarea name="message" type="text" id="form8" class="md-textarea" value="{{profile.address}}" required=""></textarea>
+                  <label for="form8">Address</label>
+                </div>
+
 
                 <div class="text-center">
                   <button class="btn btn-indigo">Save</button>
