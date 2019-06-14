@@ -92,8 +92,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-YT_API_KEY = "AIzaSyAHKciW4GFNCFm92fi4bnj9N-qfg6msv_s"
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
