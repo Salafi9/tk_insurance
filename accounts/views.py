@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -41,6 +41,10 @@ def signup(request):
         phone = request.POST.get('phone')
         username = request.POST.get('username')
         password = request.POST.get('password')
+        year = request.POST.get('year')
+        month = request.POST.get('month')
+        day = request.POST.get('day')
+        gender = request.POST.get('gender')
         try:
             try:
                 User.objects.get(username=username)
@@ -57,9 +61,13 @@ def signup(request):
             user.last_name = lname
             user.save()
             name = fname + ' ' + lname
+            UserProfile.objects.get_or_create(user=user)
             profile = user.profile
-            profile.name = name
             profile.phone_number = phone
+            from datetime import datetime
+            dob = datetime(year=int(year), month=int(month), day=int(day) )
+            profile.dob = dob
+            profile.gender = gender
             profile.save()
             subject = 'Account Activation on {}' .format(request.get_host() )
             verify_url = str(request.get_host())+"/accounts/verify/"+str(user.profile.uid)+'/'
@@ -136,3 +144,37 @@ def employeeDashboardView(request):
     context['profile'] = profile
     context['employee'] = employee
     return render(request, 'accounts/employee_dashboard.html', context=context )
+
+@login_required(login_url='accounts/login' )
+def updateProfile(request):
+    if request.method == 'POST':
+        state = request.POST.get('state')
+        country = request.POST.get('country')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+        next_url = request.POST.get('next_url')
+        user = request.user
+        try:
+            user.email = email
+            user.save()
+        except Exception as e:
+            pass
+        try:
+            profile = user.profile
+            profile.state = state
+            profile.country = country
+            profile.phone = phone
+            profile.address = address
+            profile.save()
+        except Exception as e:
+            pass
+        # request.session['profile_updated'] = True ";
+        succes = '''
+                    <script>
+                        alert("Your Profile was Successfully Updated!");
+                        window.location = "{{NEXT_URL}}";
+                    </script> '''.replace("{{NEXT_URL}}", next_url)
+        return HttpResponse(succes)
+    else:
+        return HttpResponseRedirect( reverse('accounts:dashboard') )

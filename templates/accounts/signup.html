@@ -4,8 +4,7 @@
 
     {% block content %}
     <!--====== PAGE BANNER PART START ======-->
-    
-  
+
     <section id="page-banner" class="pt-105 pb-110 bg_cover" data-overlay="8" style="background-image: url( {% if page.img %} {{ page.img.url }} {% else %} {% static 'images/main.png' %} {% endif %})">
         <div class="container">
             <div class="row">
@@ -85,6 +84,26 @@
                                             <div class="help-block with-errors"></div>
                                         </div> <!-- single form -->
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="single-form form-group">
+                                            <select name="gender" type="text" placeholder="Gender" data-error="Gender is required." required="required">
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                            </select>
+                                            <div class="help-block with-errors"></div>
+                                        </div> <!-- single form -->
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="single-form form-group">
+                                            <input name="year" type="number" placeholder="Y" data-error="Year of Birth is required." min=1919 max=2010 required="required">
+                                            <input name="month" type="number" placeholder="M" data-error="Month of Birth is required." min=1 max=12 required="required">
+                                            <input name="day" type="number" placeholder="D" data-error="Day of Birth is required." min=1 max=30 required="required">
+                                            <div class="help-block with-errors"></div>
+                                        </div> <!-- single form -->
+                                    </div>
+
                                     <p class="form-message"></p>
                                     <div class="col-md-12">
                                         <div class="single-form">
@@ -109,3 +128,8 @@
    
     
     {% endblock content %}
+    {% block custom_scripts %}  
+    <script>
+    
+    </script>
+    {% endblock custom_scripts %}

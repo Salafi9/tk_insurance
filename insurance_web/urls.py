@@ -29,15 +29,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include( ('accounts.urls', 'accounts'), namespace='accounts') ),
     path('index/', include( ('core.urls', 'core'), namespace='core') ),
+    path('insurance/', include( ('insurance.urls', 'insurance'), namespace='insurance') ),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
-
-    url(r'^password_reset/$', PasswordResetView.as_view(template_name='accounts/reset_password_form.html', email_template_name='accounts/password_reset_email.html', subject_template_name='accounts/password_reset_subject.txt', extra_email_context={'domain':'hajjmabrur.tv'}), name='forgot_password' ),
+    url(r'^password_reset/$', PasswordResetView.as_view(template_name='accounts/reset_password_form.html', email_template_name='accounts/password_reset_email.html', subject_template_name='accounts/password_reset_subject.txt'), name='forgot_password' ),
 	url(r'^password_reset/done/$', PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'), name='password_reset_done' ),
 	url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
     PasswordResetConfirmView.as_view(template_name='accounts/password_reset_confirm.html'), name='password_reset_confirm' ),
     url(r'^reset/done/$', PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'), name='password_reset_complete'  ),
-
-
     
 ]
 # Serve static and media files from development server

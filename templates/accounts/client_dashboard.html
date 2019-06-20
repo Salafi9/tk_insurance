@@ -36,14 +36,14 @@
             <!--Card content-->
             <div class="card-body">
               <div class="card-header text-uppercase text-center">
-                Policy
+                My Policy
               </div>
               <!-- Table  -->
               <table class="table table-hover">
                 <!-- Table head -->
                 <thead class="blue lighten-4">
                   <tr>
-                    <th>#</th>
+                    <th>S/No.</th>
                     <th>Type</th>
                     <th>Amount</th>
                     <th>Paid Amount</th>
@@ -89,7 +89,7 @@
             <!--Card content-->
             <div class="card-body">
               <!-- Form -->
-              <form action="#" method="POST">
+              <form action="{% url 'accounts:client-update' %}" method="POST">
                 {% csrf_token %}
                 <input name='next_url' type="hidden" value= "{{ request.get_full_path }}" >
                 
@@ -113,37 +113,37 @@
                 
                 <div class="md-form">
                     <i class="far fa-calendar-alt prefix green-text"></i>
-                    <input name="dob" type="text" id="form2" class="form-control" value="{{profile.dob}}" readonly="">
-                    <label for="form2">DOB</label>
+                    <input name="dob" type="text" id="" class="form-control" value="{{profile.dob}}" readonly="">
+                    <label for="">DOB</label>
                 </div>
 
                 <div class="md-form">
                     <i class="fas fa-globe prefix grey-text"></i>
-                    <input name="state" type="text" id="form2" class="form-control" value="{{profile.state}}" required="">
-                    <label for="form2">State</label>
+                    <input name="state" type="text" id="" class="form-control" value="{{profile.state}}" required="">
+                    <label for="">State</label>
                 </div>
 
                 <div class="md-form">
                     <i class="fas fa-globe prefix grey-text"></i>
-                    <input name="country" type="text" id="form2" class="form-control" value="{{profile.country}}" required="">
-                    <label for="form2">Country</label>
+                    <input name="country" type="text" id="" class="form-control" value="{{profile.country}}" required="">
+                    <label for="">Country</label>
                 </div>
 
                 <div class="md-form">
                   <i class="fas fa-envelope prefix grey-text"></i>
-                  <input name="email" type="text" id="form2" class="form-control" value="{{user.email}}" required="">
-                  <label for="form2">Email</label>
+                  <input name="email" type="text" id="" class="form-control" value="{{user.email}}" required="">
+                  <label for="">Email</label>
                 </div>
 
                 <div class="md-form">
                   <i class="fas fa-phone prefix grey-text"></i>
-                  <input name="phone" type="text" id="form2" class="form-control" value="{{profile.phone_number}}" required="">
-                  <label for="form2">Phone</label>
+                  <input name="phone" type="text" id="" class="form-control" value="{{profile.phone_number}}" required="">
+                  <label for="">Phone</label>
                 </div>
 
                 <div class="md-form">
                   <i class="fas fa-pencil-alt prefix grey-text"></i>
-                  <textarea name="message" type="text" id="form8" class="md-textarea" value="{{profile.address}}" required=""></textarea>
+                  <input name="address" type="text" class="md-textarea" value="{{profile.address}}" required=""></input>
                   <label for="form8">Address</label>
                 </div>
 

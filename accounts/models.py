@@ -1,7 +1,8 @@
 from django.db import models
 from uuid import uuid4
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 GENDER = (
@@ -57,6 +58,15 @@ class UserProfile(models.Model):
         else:
             return str(self.user.username)
 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 class EmployeeProfile(models.Model):
     profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE,  related_name='employee_profile')
     uid = models.UUIDField(default=uuid4, editable=True)
@@ -88,5 +98,14 @@ class ClientProfile(models.Model):
 
     def __str__(self):
     	return str(self.profile)
+
+@receiver(post_save, sender=UserProfile)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        ClientProfile.objects.create(profile=instance)
+
+@receiver(post_save, sender=UserProfile)
+def save_user_profile(sender, instance, **kwargs):
+    instance.client_profile.save()
 
     

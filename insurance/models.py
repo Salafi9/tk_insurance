@@ -2,6 +2,7 @@ from django.db import models
 from core.helpers import getUniqueId
 from django.utils import timezone
 from uuid import uuid4
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -35,8 +36,9 @@ class Insurance(models.Model):
 
 class InsuranceType(models.Model):
     name = models.CharField(max_length=255)
+    image = models.ImageField(blank=True, null=True, upload_to='insurances')
     uui = models.UUIDField('Insurance Type Unique ID', default=uuid4,)
-    summary = models.TextField()
+    summary = RichTextField()
 
     class Meta: 
         verbose_name = 'Insurance Type'

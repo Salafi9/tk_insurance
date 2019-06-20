@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 
-from .views import signup, singin, verifyUserView, clientDashboardView, employeeDashboardView, dashboardView
+from .views import signup, singin, verifyUserView, clientDashboardView, employeeDashboardView, dashboardView, updateProfile
 
 from django.contrib.auth.views import LogoutView
 
@@ -11,6 +11,7 @@ urlpatterns = [
 	url(r'logout/$', LogoutView.as_view(), {'next_page': '/'}, name='logout'),
 	url(r'dashboard/', dashboardView, name='dashboard'),
 	url(r'client/$', clientDashboardView, name='client-dashboard'),
+	url(r'update-profile/$', updateProfile, name='client-update'),
 	url(r'employee/$', employeeDashboardView, name='employee-dashboard'),
 	url(r'', singin),
 	url('^', include('django.contrib.auth.urls')),

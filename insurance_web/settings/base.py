@@ -106,6 +106,16 @@ USE_L10N = True
 USE_TZ = True
 
 #  Mail sending 
+#  Mail sending 
+SERVER_EMAIL = 'hajjmabrur405@gmail.com' 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST_USER = 'hajjmabrur405@gmail.com' 
+EMAIL_HOST_PASSWORD = 'Pass@1234' 
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+DEFAULT_FROM_EMAIL = 'TK INSURANCE <noreply@hajjmabrur.tv>'
+
 
 # Custom Config
 LOGOUT_REDIRECT_URL = '/' 
